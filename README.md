@@ -11,9 +11,7 @@ We decided to try to fix it by using the scikit-image library
 which offers a precise translation detection method between two images.
 [Read More](http://scikit-image.org/docs/dev/auto_examples/plot_register_translation.html)
 
-We were quite astonished by the end result.
-
-## Example
+We were quite astonished by the end result: it is available on [Vimeo](https://vimeo.com/158609239)
 
 ## Usage
 
