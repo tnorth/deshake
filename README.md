@@ -24,6 +24,11 @@ Usage if fairly simple, you just need to provide one input directory
 with all your images. The second argument is optional (by default ```output```
 is used as an output directory)
 
+For instance, using our test example (the images have been released under a
+[CC-by](https://creativecommons.org/licenses/by/3.0/) license):
+
+    wget http://pmoret.ch/alpes.tgz
+    tar xzvf alpes.tgz
     ./deshake.py alpes/ output/
 
 
