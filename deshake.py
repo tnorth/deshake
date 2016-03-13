@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -20,7 +21,7 @@ from skimage.color import rgb2gray
 from skimage.filters import sobel
 
 
-def get_image_list(pattern='alpes_small/alpes_%d.jpg', start=0):
+def get_image_list(pattern='alpes_%d.jpg', start=0):
     """
     Reads a list of images given a pattern.
     :param pattern: A pattern containing one integer, e.g. "dir/image_%d.jpg".
@@ -93,6 +94,8 @@ def batch_align(image_list, dest_dir="output"):
     if not path.exists(dest_dir):
         mkdir(dest_dir)
     if path.isdir(dest_dir):
+        print "Aligning %d images, output in %s, this may take a while" % (len(im_list), dest_dir)
+
         ref_img = io.imread(image_list[0])
         r = Parallel(n_jobs=4, backend="threading", verbose=25)(
             delayed(find_shift)(io.imread(img), ref_img) for img in image_list[1:])
