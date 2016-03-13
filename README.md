@@ -18,6 +18,9 @@ We were quite impressed by the end result (click to view in Vimeo):
 
 ## Usage
 
+The script depends on [scikit-image](http://scikit-image.org/) and [joblib](https://pythonhosted.org/joblib/).
+Make sure those two libraries are available in your python environment.
+
     ./deshake.py INPUT_DIR [OUTPUT_DIR]
 
 Usage if fairly simple, you just need to provide one input directory
