@@ -113,23 +113,19 @@ def batch_align(image_list, dest_dir="output"):
         print "Output dir does not exists or is not a directory : %s" % dest_dir
 
 
-def usage():
-    print """Usage: ./deshake.py INPUT_DIR [OUTPUT_DIR]
-Notes:
-    - The INPUT_DIR must contain only image files.
-    - The file names are kept in the OUTPUT_DIR
-    - "output" is used by default, when no other dir is given for the output."""
-    exit(1)
+
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 1 or len(sys.argv) > 3:
-        usage()
-    else:
-        input_dir = sys.argv[1]
-        im_list = get_files_from_dir(input_dir)
-        if len(sys.argv) > 2:
-            output = sys.argv[2]
-            batch_align(im_list, output)
-        else:
-            batch_align(im_list)
+    
+    import argparse
+   
+    parser = argparse.ArgumentParser(description='Deshake a time series of images')
+    parser.add_argument('input_dir', 
+                        help='The input directory containing (only) the image files')
+    parser.add_argument('output_dir', default='output', nargs='?',
+                        help='If specified, this directory is used for the output') 
+    args = parser.parse_args()
+
+    im_list = get_files_from_dir(args.input_dir)
+    batch_align(im_list, args.output_dir)
