@@ -94,15 +94,15 @@ def batch_align(image_list, dest_dir="output"):
     if not path.exists(dest_dir):
         mkdir(dest_dir)
     if path.isdir(dest_dir):
-        print "Aligning %d images, output in %s, this may take a while" % (len(im_list), dest_dir)
+        print(("Aligning %d images, output in %s, this may take a while" % (len(im_list), dest_dir)))
 
         ref_img = io.imread(image_list[0])
         r = Parallel(n_jobs=4, backend="threading", verbose=25)(
             delayed(find_shift)(io.imread(img), ref_img) for img in image_list[1:])
-        y_shift = map(lambda x: x[0], r)
-        x_shift = map(lambda x: x[1], r)
+        y_shift = [x[0] for x in r]
+        x_shift = [x[1] for x in r]
 
-        print min(y_shift), max(y_shift), min(x_shift), max(x_shift)
+        print(min(y_shift), max(y_shift), min(x_shift), max(x_shift))
         crop = [int(min(y_shift)) - 1, int(max(y_shift)) + 1, int(min(x_shift)) - 1, int(max(x_shift)) + 1]
 
         correct(ref_img, (0, 0), "%s/%s" % (dest_dir, path.basename(image_list[0])), crop)
@@ -110,15 +110,15 @@ def batch_align(image_list, dest_dir="output"):
             delayed(correct)(io.imread(img), r[k], "%s/%s" % (dest_dir, path.basename(image_list[k])), crop)
             for k, img in enumerate(image_list[1:]))
     else:
-        print "Output dir does not exists or is not a directory : %s" % dest_dir
+        print("Output dir does not exists or is not a directory : %s" % dest_dir)
 
 
 def usage():
-    print """Usage: ./deshake.py INPUT_DIR [OUTPUT_DIR]
+    print("""Usage: ./deshake.py INPUT_DIR [OUTPUT_DIR]
 Notes:
     - The INPUT_DIR must contain only image files.
     - The file names are kept in the OUTPUT_DIR
-    - "output" is used by default, when no other dir is given for the output."""
+    - "output" is used by default, when no other dir is given for the output.""")
     exit(1)
 
 
